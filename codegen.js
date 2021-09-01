@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const {
-  HASURA_GRAPHQL_ENDPOINT: endpoint,
+  HASURA_GRAPHQL_API_ENDPOINT: endpoint,
   HASURA_GRAPHQL_ADMIN_SECRET: secret,
 } = process.env;
 
@@ -18,7 +18,7 @@ const COMMON_SCALAR_MAPPING = {
 const codeGenConfig = {
   generates: {
     'src/sdk/sdk.ts': {
-      documents: ['src/**/*.ts'],
+      documents: ['src/**/*.service.ts'],
       schema: [
         {
           [endpoint]: {
@@ -34,6 +34,7 @@ const codeGenConfig = {
         'typescript-graphql-request',
       ],
       config: {
+        gqlImport: 'graphql-request#gql',
         avoidOptionals: {
           object: true,
           field: true,

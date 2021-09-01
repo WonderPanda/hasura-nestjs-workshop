@@ -19,6 +19,13 @@ array_relationships:
 select_permissions:
 - permission:
     columns:
+    - coins
+    - created_at
     - display_name
-    filter: {}
+    - email
+    - id
+    - updated_at
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
   role: user

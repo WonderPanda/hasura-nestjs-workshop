@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
+
 CREATE OR REPLACE FUNCTION set_current_timestamp_updated_at()
     RETURNS TRIGGER AS
 $$
@@ -12,11 +14,17 @@ CREATE TABLE users
     id           SERIAL      NOT NULL,
     email        TEXT        NOT NULL UNIQUE,
     display_name TEXT,
-    coins        INT         NOT NULL DEFAULT 50 CHECK (coins >= 0),
+    password_hash TEXT NOT NULL,
+    coins        INT         NOT NULL DEFAULT 50
+        CONSTRAINT non_negative_balance CHECK (coins >= 0),
     created_at   timestamptz NOT NULL DEFAULT NOW(),
     updated_at   timestamptz NOT NULL DEFAULT NOW(),
     PRIMARY KEY (id)
 );
+
+CREATE VIEW public_users AS
+SELECT id, display_name
+FROM users;
 
 CREATE TRIGGER set_users_updated_at
     BEFORE UPDATE
@@ -38,7 +46,9 @@ CREATE TABLE user_created_items
     PRIMARY KEY (id)
 );
 
-CREATE VIEW public_items AS SELECT id, user_id, name, description, cost, created_at, updated_at FROM user_created_items;
+CREATE VIEW public_items AS
+SELECT id, user_id, name, description, cost, created_at, updated_at
+FROM user_created_items;
 
 CREATE TRIGGER set_user_created_items_updated_at
     BEFORE UPDATE

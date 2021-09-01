@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-request';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -30,7 +30,9 @@ export type Int_Comparison_Exp = {
 };
 
 export type RegisterUserArgs = {
+  displayName?: Maybe<Scalars['String']>;
   email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type RegisterUserOutput = {
@@ -77,6 +79,8 @@ export type Mutation_Root = {
   __typename?: 'mutation_root';
   /** delete data from the table: "public_items" */
   delete_public_items: Maybe<Public_Items_Mutation_Response>;
+  /** delete data from the table: "public_users" */
+  delete_public_users: Maybe<Public_Users_Mutation_Response>;
   /** delete data from the table: "user_created_items" */
   delete_user_created_items: Maybe<User_Created_Items_Mutation_Response>;
   /** delete single row from the table: "user_created_items" */
@@ -93,6 +97,10 @@ export type Mutation_Root = {
   insert_public_items: Maybe<Public_Items_Mutation_Response>;
   /** insert a single row into the table: "public_items" */
   insert_public_items_one: Maybe<Public_Items>;
+  /** insert data into the table: "public_users" */
+  insert_public_users: Maybe<Public_Users_Mutation_Response>;
+  /** insert a single row into the table: "public_users" */
+  insert_public_users_one: Maybe<Public_Users>;
   /** insert data into the table: "user_created_items" */
   insert_user_created_items: Maybe<User_Created_Items_Mutation_Response>;
   /** insert a single row into the table: "user_created_items" */
@@ -108,6 +116,8 @@ export type Mutation_Root = {
   registerUser: Maybe<RegisterUserOutput>;
   /** update data of the table: "public_items" */
   update_public_items: Maybe<Public_Items_Mutation_Response>;
+  /** update data of the table: "public_users" */
+  update_public_users: Maybe<Public_Users_Mutation_Response>;
   /** update data of the table: "user_created_items" */
   update_user_created_items: Maybe<User_Created_Items_Mutation_Response>;
   /** update single row of the table: "user_created_items" */
@@ -126,6 +136,12 @@ export type Mutation_Root = {
 /** mutation root */
 export type Mutation_RootDelete_Public_ItemsArgs = {
   where: Public_Items_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Public_UsersArgs = {
+  where: Public_Users_Bool_Exp;
 };
 
 
@@ -175,6 +191,18 @@ export type Mutation_RootInsert_Public_ItemsArgs = {
 /** mutation root */
 export type Mutation_RootInsert_Public_Items_OneArgs = {
   object: Public_Items_Insert_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Public_UsersArgs = {
+  objects: Array<Public_Users_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Public_Users_OneArgs = {
+  object: Public_Users_Insert_Input;
 };
 
 
@@ -231,6 +259,14 @@ export type Mutation_RootUpdate_Public_ItemsArgs = {
   _inc: Maybe<Public_Items_Inc_Input>;
   _set: Maybe<Public_Items_Set_Input>;
   where: Public_Items_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Public_UsersArgs = {
+  _inc: Maybe<Public_Users_Inc_Input>;
+  _set: Maybe<Public_Users_Set_Input>;
+  where: Public_Users_Bool_Exp;
 };
 
 
@@ -508,12 +544,164 @@ export type Public_Items_Variance_Fields = {
   user_id: Maybe<Scalars['Float']>;
 };
 
+/** columns and relationships of "public_users" */
+export type Public_Users = {
+  __typename?: 'public_users';
+  display_name: Maybe<Scalars['String']>;
+  id: Maybe<Scalars['Int']>;
+};
+
+/** aggregated selection of "public_users" */
+export type Public_Users_Aggregate = {
+  __typename?: 'public_users_aggregate';
+  aggregate: Maybe<Public_Users_Aggregate_Fields>;
+  nodes: Array<Public_Users>;
+};
+
+/** aggregate fields of "public_users" */
+export type Public_Users_Aggregate_Fields = {
+  __typename?: 'public_users_aggregate_fields';
+  avg: Maybe<Public_Users_Avg_Fields>;
+  count: Scalars['Int'];
+  max: Maybe<Public_Users_Max_Fields>;
+  min: Maybe<Public_Users_Min_Fields>;
+  stddev: Maybe<Public_Users_Stddev_Fields>;
+  stddev_pop: Maybe<Public_Users_Stddev_Pop_Fields>;
+  stddev_samp: Maybe<Public_Users_Stddev_Samp_Fields>;
+  sum: Maybe<Public_Users_Sum_Fields>;
+  var_pop: Maybe<Public_Users_Var_Pop_Fields>;
+  var_samp: Maybe<Public_Users_Var_Samp_Fields>;
+  variance: Maybe<Public_Users_Variance_Fields>;
+};
+
+
+/** aggregate fields of "public_users" */
+export type Public_Users_Aggregate_FieldsCountArgs = {
+  columns: Maybe<Array<Public_Users_Select_Column>>;
+  distinct: Maybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Public_Users_Avg_Fields = {
+  __typename?: 'public_users_avg_fields';
+  id: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "public_users". All fields are combined with a logical 'AND'. */
+export type Public_Users_Bool_Exp = {
+  _and?: Maybe<Array<Public_Users_Bool_Exp>>;
+  _not?: Maybe<Public_Users_Bool_Exp>;
+  _or?: Maybe<Array<Public_Users_Bool_Exp>>;
+  display_name?: Maybe<String_Comparison_Exp>;
+  id?: Maybe<Int_Comparison_Exp>;
+};
+
+/** input type for incrementing numeric columns in table "public_users" */
+export type Public_Users_Inc_Input = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "public_users" */
+export type Public_Users_Insert_Input = {
+  display_name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate max on columns */
+export type Public_Users_Max_Fields = {
+  __typename?: 'public_users_max_fields';
+  display_name: Maybe<Scalars['String']>;
+  id: Maybe<Scalars['Int']>;
+};
+
+/** aggregate min on columns */
+export type Public_Users_Min_Fields = {
+  __typename?: 'public_users_min_fields';
+  display_name: Maybe<Scalars['String']>;
+  id: Maybe<Scalars['Int']>;
+};
+
+/** response of any mutation on the table "public_users" */
+export type Public_Users_Mutation_Response = {
+  __typename?: 'public_users_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Public_Users>;
+};
+
+/** Ordering options when selecting data from "public_users". */
+export type Public_Users_Order_By = {
+  display_name?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+};
+
+/** select columns of table "public_users" */
+export enum Public_Users_Select_Column {
+  /** column name */
+  DisplayName = 'display_name',
+  /** column name */
+  Id = 'id'
+}
+
+/** input type for updating data in table "public_users" */
+export type Public_Users_Set_Input = {
+  display_name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate stddev on columns */
+export type Public_Users_Stddev_Fields = {
+  __typename?: 'public_users_stddev_fields';
+  id: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Public_Users_Stddev_Pop_Fields = {
+  __typename?: 'public_users_stddev_pop_fields';
+  id: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Public_Users_Stddev_Samp_Fields = {
+  __typename?: 'public_users_stddev_samp_fields';
+  id: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Public_Users_Sum_Fields = {
+  __typename?: 'public_users_sum_fields';
+  id: Maybe<Scalars['Int']>;
+};
+
+/** aggregate var_pop on columns */
+export type Public_Users_Var_Pop_Fields = {
+  __typename?: 'public_users_var_pop_fields';
+  id: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Public_Users_Var_Samp_Fields = {
+  __typename?: 'public_users_var_samp_fields';
+  id: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Public_Users_Variance_Fields = {
+  __typename?: 'public_users_variance_fields';
+  id: Maybe<Scalars['Float']>;
+};
+
 export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "public_items" */
   public_items: Array<Public_Items>;
   /** fetch aggregated fields from the table: "public_items" */
   public_items_aggregate: Public_Items_Aggregate;
+  /** fetch data from the table: "public_users" */
+  public_users: Array<Public_Users>;
+  /** fetch aggregated fields from the table: "public_users" */
+  public_users_aggregate: Public_Users_Aggregate;
   /** fetch data from the table: "user_created_items" */
   user_created_items: Array<User_Created_Items>;
   /** fetch aggregated fields from the table: "user_created_items" */
@@ -550,6 +738,24 @@ export type Query_RootPublic_Items_AggregateArgs = {
   offset: Maybe<Scalars['Int']>;
   order_by: Maybe<Array<Public_Items_Order_By>>;
   where: Maybe<Public_Items_Bool_Exp>;
+};
+
+
+export type Query_RootPublic_UsersArgs = {
+  distinct_on: Maybe<Array<Public_Users_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Public_Users_Order_By>>;
+  where: Maybe<Public_Users_Bool_Exp>;
+};
+
+
+export type Query_RootPublic_Users_AggregateArgs = {
+  distinct_on: Maybe<Array<Public_Users_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Public_Users_Order_By>>;
+  where: Maybe<Public_Users_Bool_Exp>;
 };
 
 
@@ -628,6 +834,10 @@ export type Subscription_Root = {
   public_items: Array<Public_Items>;
   /** fetch aggregated fields from the table: "public_items" */
   public_items_aggregate: Public_Items_Aggregate;
+  /** fetch data from the table: "public_users" */
+  public_users: Array<Public_Users>;
+  /** fetch aggregated fields from the table: "public_users" */
+  public_users_aggregate: Public_Users_Aggregate;
   /** fetch data from the table: "user_created_items" */
   user_created_items: Array<User_Created_Items>;
   /** fetch aggregated fields from the table: "user_created_items" */
@@ -664,6 +874,24 @@ export type Subscription_RootPublic_Items_AggregateArgs = {
   offset: Maybe<Scalars['Int']>;
   order_by: Maybe<Array<Public_Items_Order_By>>;
   where: Maybe<Public_Items_Bool_Exp>;
+};
+
+
+export type Subscription_RootPublic_UsersArgs = {
+  distinct_on: Maybe<Array<Public_Users_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Public_Users_Order_By>>;
+  where: Maybe<Public_Users_Bool_Exp>;
+};
+
+
+export type Subscription_RootPublic_Users_AggregateArgs = {
+  distinct_on: Maybe<Array<Public_Users_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Public_Users_Order_By>>;
+  where: Maybe<Public_Users_Bool_Exp>;
 };
 
 
@@ -1463,6 +1691,7 @@ export type Users = {
   display_name: Maybe<Scalars['String']>;
   email: Scalars['String'];
   id: Scalars['Int'];
+  password_hash: Scalars['String'];
   /** An array relationship */
   purchased_items: Array<User_Purchased_Items>;
   /** An aggregate relationship */
@@ -1558,6 +1787,7 @@ export type Users_Bool_Exp = {
   display_name?: Maybe<String_Comparison_Exp>;
   email?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
+  password_hash?: Maybe<String_Comparison_Exp>;
   purchased_items?: Maybe<User_Purchased_Items_Bool_Exp>;
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
 };
@@ -1584,6 +1814,7 @@ export type Users_Insert_Input = {
   display_name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
+  password_hash?: Maybe<Scalars['String']>;
   purchased_items?: Maybe<User_Purchased_Items_Arr_Rel_Insert_Input>;
   updated_at?: Maybe<Scalars['timestamptz']>;
 };
@@ -1596,6 +1827,7 @@ export type Users_Max_Fields = {
   display_name: Maybe<Scalars['String']>;
   email: Maybe<Scalars['String']>;
   id: Maybe<Scalars['Int']>;
+  password_hash: Maybe<Scalars['String']>;
   updated_at: Maybe<Scalars['timestamptz']>;
 };
 
@@ -1607,6 +1839,7 @@ export type Users_Min_Fields = {
   display_name: Maybe<Scalars['String']>;
   email: Maybe<Scalars['String']>;
   id: Maybe<Scalars['Int']>;
+  password_hash: Maybe<Scalars['String']>;
   updated_at: Maybe<Scalars['timestamptz']>;
 };
 
@@ -1641,6 +1874,7 @@ export type Users_Order_By = {
   display_name?: Maybe<Order_By>;
   email?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  password_hash?: Maybe<Order_By>;
   purchased_items_aggregate?: Maybe<User_Purchased_Items_Aggregate_Order_By>;
   updated_at?: Maybe<Order_By>;
 };
@@ -1663,6 +1897,8 @@ export enum Users_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  PasswordHash = 'password_hash',
+  /** column name */
   UpdatedAt = 'updated_at'
 }
 
@@ -1673,6 +1909,7 @@ export type Users_Set_Input = {
   display_name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
+  password_hash?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
@@ -1717,6 +1954,8 @@ export enum Users_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  PasswordHash = 'password_hash',
+  /** column name */
   UpdatedAt = 'updated_at'
 }
 
@@ -1741,18 +1980,33 @@ export type Users_Variance_Fields = {
   id: Maybe<Scalars['Float']>;
 };
 
-export type RegisterUserMutationVariables = Exact<{
+export type CreateUserMutationVariables = Exact<{
   input: Users_Insert_Input;
 }>;
 
 
-export type RegisterUserMutation = { __typename?: 'mutation_root', insert_users_one: Maybe<{ __typename?: 'users', id: number }> };
+export type CreateUserMutation = { __typename?: 'mutation_root', insert_users_one: Maybe<{ __typename?: 'users', id: number }> };
+
+export type FindUserByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
 
 
-export const RegisterUserDocument = gql`
-    mutation registerUser($input: users_insert_input!) {
+export type FindUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: number, password_hash: string }> };
+
+
+export const CreateUserDocument = gql`
+    mutation createUser($input: users_insert_input!) {
   insert_users_one(object: $input) {
     id
+  }
+}
+    `;
+export const FindUserByEmailDocument = gql`
+    query findUserByEmail($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    id
+    password_hash
   }
 }
     `;
@@ -1764,8 +2018,11 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    registerUser(variables: RegisterUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RegisterUserMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<RegisterUserMutation>(RegisterUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'registerUser');
+    createUser(variables: CreateUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateUserMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateUserMutation>(CreateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createUser');
+    },
+    findUserByEmail(variables: FindUserByEmailQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FindUserByEmailQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindUserByEmailQuery>(FindUserByEmailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findUserByEmail');
     }
   };
 }

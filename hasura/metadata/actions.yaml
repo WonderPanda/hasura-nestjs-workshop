@@ -1,12 +1,22 @@
 actions:
+- name: login
+  definition:
+    kind: synchronous
+    handler: '{{NESTJS_BASE_URL}}/auth/login'
+  permissions:
+  - role: anonymous
 - name: registerUser
   definition:
     kind: synchronous
     handler: '{{NESTJS_BASE_URL}}/auth/register'
+  permissions:
+  - role: anonymous
 custom_types:
   enums: []
   input_objects:
   - name: RegisterUserArgs
+  - name: LoginUserArgs
   objects:
   - name: RegisterUserOutput
+  - name: LoginOrRegisterUserOutput
   scalars: []

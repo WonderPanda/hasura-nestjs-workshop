@@ -27,6 +27,7 @@ insert_permissions:
 select_permissions:
 - permission:
     columns:
+    - cost
     - description
     - name
     - secret

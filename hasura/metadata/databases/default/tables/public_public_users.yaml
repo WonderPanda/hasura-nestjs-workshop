@@ -1,0 +1,10 @@
+table:
+  name: public_users
+  schema: public
+select_permissions:
+- permission:
+    columns:
+    - display_name
+    - id
+    filter: {}
+  role: user
