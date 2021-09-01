@@ -1,0 +1,15 @@
+type Mutation {
+  registerUser(
+    params: RegisterUserArgs
+  ): RegisterUserOutput
+}
+
+input RegisterUserArgs {
+  email: String!
+}
+
+type RegisterUserOutput {
+  token: String
+  error: String
+}
+

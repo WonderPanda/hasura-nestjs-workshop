@@ -19,17 +19,27 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "hasura": "hasura --project ./hasura --envfile ../.env --skip-update-check"
+    "hasura": "hasura --project ./hasura --envfile ../.env --skip-update-check",
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "graphql": "^15.5.2",
+    "graphql-request": "^3.5.0",
+    "graphql-tag": "^2.12.5",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.1.1",
+    "@graphql-codegen/introspection": "^2.1.0",
+    "@graphql-codegen/typescript": "^2.1.2",
+    "@graphql-codegen/typescript-graphql-request": "^4.1.2",
+    "@graphql-codegen/typescript-operations": "^2.1.2",
+    "@graphql-codegen/typescript-react-apollo": "^3.1.2",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
@@ -39,6 +49,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "dotenv": "^10.0.0",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",

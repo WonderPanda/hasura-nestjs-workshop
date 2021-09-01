@@ -1,6 +1,12 @@
-actions: []
+actions:
+- name: registerUser
+  definition:
+    kind: synchronous
+    handler: '{{NESTJS_BASE_URL}}/auth/register'
 custom_types:
   enums: []
-  input_objects: []
-  objects: []
+  input_objects:
+  - name: RegisterUserArgs
+  objects:
+  - name: RegisterUserOutput
   scalars: []
