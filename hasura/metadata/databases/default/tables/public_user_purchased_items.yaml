@@ -1,0 +1,3 @@
+table:
+  name: user_purchased_items
+  schema: public

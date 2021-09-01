@@ -1,0 +1,24 @@
+table:
+  name: users
+  schema: public
+array_relationships:
+- name: created_items
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: user_created_items
+        schema: public
+- name: purchased_items
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: user_purchased_items
+        schema: public
+select_permissions:
+- permission:
+    columns:
+    - display_name
+    filter: {}
+  role: user

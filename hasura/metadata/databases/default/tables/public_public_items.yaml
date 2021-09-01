@@ -1,0 +1,15 @@
+table:
+  name: public_items
+  schema: public
+select_permissions:
+- permission:
+    columns:
+    - cost
+    - created_at
+    - description
+    - id
+    - name
+    - updated_at
+    - user_id
+    filter: {}
+  role: user
