@@ -2,19 +2,19 @@ table:
   name: users
   schema: public
 array_relationships:
-- name: created_items
+- name: items
   using:
     foreign_key_constraint_on:
       column: user_id
       table:
-        name: user_created_items
+        name: items
         schema: public
-- name: purchased_items
+- name: purchases
   using:
     foreign_key_constraint_on:
       column: user_id
       table:
-        name: user_purchased_items
+        name: purchases
         schema: public
 select_permissions:
 - permission:

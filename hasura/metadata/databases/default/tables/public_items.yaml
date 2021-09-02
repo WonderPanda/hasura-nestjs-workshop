@@ -1,0 +1,34 @@
+table:
+  name: items
+  schema: public
+object_relationships:
+- name: user
+  using:
+    foreign_key_constraint_on: user_id
+array_relationships:
+- name: purchases
+  using:
+    foreign_key_constraint_on:
+      column: item_id
+      table:
+        name: purchases
+        schema: public
+select_permissions:
+- permission:
+    columns:
+    - id
+    - user_id
+    - name
+    - description
+    - secret
+    - cost
+    - created_at
+    - updated_at
+    filter:
+      _or:
+      - user_id:
+          _eq: X-Hasura-User-Id
+      - purchases:
+          user_id:
+            _eq: X-Hasura-User-Id
+  role: user

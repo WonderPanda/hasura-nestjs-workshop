@@ -11,7 +11,7 @@ gql`
     }
   }
 
-  query findUserByEmail($email: String!) {
+  query findUserByEmail($email: citext!) {
     users(where: { email: { _eq: $email } }) {
       id
       password_hash

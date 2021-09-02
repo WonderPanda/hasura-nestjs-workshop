@@ -1,5 +1,4 @@
+- "!include public_items.yaml"
 - "!include public_public_items.yaml"
-- "!include public_public_users.yaml"
-- "!include public_user_created_items.yaml"
-- "!include public_user_purchased_items.yaml"
+- "!include public_purchases.yaml"
 - "!include public_users.yaml"

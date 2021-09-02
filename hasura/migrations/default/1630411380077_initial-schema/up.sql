@@ -11,14 +11,14 @@ $$ LANGUAGE plpgsql;
 
 CREATE TABLE users
 (
-    id           SERIAL      NOT NULL,
-    email        TEXT        NOT NULL UNIQUE,
-    display_name TEXT,
-    password_hash TEXT NOT NULL,
-    coins        INT         NOT NULL DEFAULT 50
+    id            SERIAL      NOT NULL,
+    email         citext      NOT NULL UNIQUE,
+    display_name  TEXT,
+    password_hash TEXT        NOT NULL,
+    coins         INT         NOT NULL DEFAULT 50
         CONSTRAINT non_negative_balance CHECK (coins >= 0),
-    created_at   timestamptz NOT NULL DEFAULT NOW(),
-    updated_at   timestamptz NOT NULL DEFAULT NOW(),
+    created_at    timestamptz NOT NULL DEFAULT NOW(),
+    updated_at    timestamptz NOT NULL DEFAULT NOW(),
     PRIMARY KEY (id)
 );
 
@@ -33,7 +33,7 @@ CREATE TRIGGER set_users_updated_at
 EXECUTE PROCEDURE set_current_timestamp_updated_at();
 
 
-CREATE TABLE user_created_items
+CREATE TABLE items
 (
     id          SERIAL      NOT NULL,
     user_id     INT         NOT NULL REFERENCES users (id),
@@ -48,19 +48,19 @@ CREATE TABLE user_created_items
 
 CREATE VIEW public_items AS
 SELECT id, user_id, name, description, cost, created_at, updated_at
-FROM user_created_items;
+FROM items;
 
-CREATE TRIGGER set_user_created_items_updated_at
+CREATE TRIGGER set_items_updated_at
     BEFORE UPDATE
-    ON user_created_items
+    ON items
     FOR EACH ROW
 EXECUTE PROCEDURE set_current_timestamp_updated_at();
 
-CREATE TABLE user_purchased_items
+CREATE TABLE purchases
 (
     user_id       INT         NOT NULL REFERENCES users (id),
-    user_item_id  INT         NOT NULL REFERENCES user_created_items (id),
+    item_id       INT         NOT NULL REFERENCES items (id),
     purchase_cost INT         NOT NULL,
     purchased_at  timestamptz NOT NULL DEFAULT NOW(),
-    PRIMARY KEY (user_id, user_item_id)
+    PRIMARY KEY (user_id, item_id)
 );
