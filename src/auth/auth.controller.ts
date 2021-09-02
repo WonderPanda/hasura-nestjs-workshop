@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService, LoginUserArgs, RegisterUserArgs } from './auth.service';
-import { JwtAuthGuard } from './jwt.guard';
 
 interface HasuraActionsPayload<Input extends {} = {}, Session extends {} = {}> {
   action: {

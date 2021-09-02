@@ -1,13 +1,1 @@
-- name: summarize-purchases
-  webhook: '{{NESTJS_EVENT_WEBHOOK_ENDPOINT}}'
-  schedule: '* * * * *'
-  include_in_metadata: true
-  payload: {}
-  retry_conf:
-    num_retries: 3
-    timeout_seconds: 100
-    tolerance_seconds: 21600
-    retry_interval_seconds: 30
-  headers:
-    - name: nestjs-event-webhook
-      value_from_env: NESTJS_EVENT_WEBHOOK_SHARED_SECRET
+[]
