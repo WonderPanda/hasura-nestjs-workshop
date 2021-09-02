@@ -2,30 +2,44 @@ table:
   name: users
   schema: public
 array_relationships:
-- name: items
-  using:
-    foreign_key_constraint_on:
-      column: user_id
-      table:
-        name: items
-        schema: public
-- name: purchases
-  using:
-    foreign_key_constraint_on:
-      column: user_id
-      table:
-        name: purchases
-        schema: public
+  - name: items
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: items
+          schema: public
+  - name: purchases
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: purchases
+          schema: public
 select_permissions:
-- permission:
-    columns:
-    - coins
-    - created_at
-    - display_name
-    - email
-    - id
-    - updated_at
-    filter:
-      id:
-        _eq: X-Hasura-User-Id
-  role: user
+  - permission:
+      columns:
+        - coins
+        - created_at
+        - display_name
+        - email
+        - id
+        - updated_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    role: user
+event_triggers:
+  - name: user-created
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+    retry_conf:
+      num_retries: 3
+      interval_sec: 30
+      timeout_sec: 100
+    webhook_from_env: NESTJS_EVENT_WEBHOOK_ENDPOINT
+    headers:
+      - name: nestjs-event-webhook
+        value_from_env: NESTJS_EVENT_WEBHOOK_SHARED_SECRET

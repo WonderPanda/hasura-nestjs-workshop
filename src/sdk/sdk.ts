@@ -1866,6 +1866,11 @@ export type PurchaseItemMutationVariables = Exact<{
 
 export type PurchaseItemMutation = { __typename?: 'mutation_root', buyer: Maybe<{ __typename?: 'users', coins: number }>, seller: Maybe<{ __typename?: 'users', coins: number }>, purchase: Maybe<{ __typename?: 'purchases', item: { __typename?: 'items', secret: string } }> };
 
+export type GetAggregatePurchasesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAggregatePurchasesQuery = { __typename?: 'query_root', purchases_aggregate: { __typename?: 'purchases_aggregate', aggregate: Maybe<{ __typename?: 'purchases_aggregate_fields', count: number }>, nodes: Array<{ __typename?: 'purchases', user_id: number, purchase_cost: number }> } };
+
 
 export const CreateUserDocument = gql`
     mutation createUser($input: users_insert_input!) {
@@ -1913,6 +1918,19 @@ export const PurchaseItemDocument = gql`
   }
 }
     `;
+export const GetAggregatePurchasesDocument = gql`
+    query getAggregatePurchases {
+  purchases_aggregate {
+    aggregate {
+      count
+    }
+    nodes {
+      user_id
+      purchase_cost
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
@@ -1932,6 +1950,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     purchaseItem(variables: PurchaseItemMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PurchaseItemMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<PurchaseItemMutation>(PurchaseItemDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'purchaseItem');
+    },
+    getAggregatePurchases(variables?: GetAggregatePurchasesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetAggregatePurchasesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAggregatePurchasesQuery>(GetAggregatePurchasesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAggregatePurchases');
     }
   };
 }

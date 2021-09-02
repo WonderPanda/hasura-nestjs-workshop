@@ -1,73 +1,73 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# NestJS + Hasura Workshop
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Demonstrating building complex applications with integration between [Hasura](https://hasura.io/) and [NestJS](https://nestjs.com/) using
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Hasura Actions
+- Remote Schemas
+- Event Triggers
+- Scheduled Events
 
-## Description
+## The App
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A fictional digital marketplace where users can exchange knowledge for coins. Users are given 50 coins upon registration. They can put up items with secret content in the marketplace to be purchased by other users.
 
-## Installation
+The following rules apply:
 
-```bash
-$ npm install
+- Upon registration a user can create items to be sold on the marketplace
+- Registered users can view public information about all the items in the marketplace but they won't be able to see the item's secret content unless they purchase it using their inventory of coins
+- Upon purchase the cost of the item will be subtracted from the buyer's coins and added to the seller's account. 1 coin will be kept by the application as a processing fee on top of every purchase
+  - Purchases need to properly leverage transactions to ensure that a user actually has enough coins, otherwise no account balances are modified
+
+## Notes
+
+The master branch currently contains the finished project. If you'd like to follow along checkout the `starting` branch after cloning this repository.
+
+## Getting Started
+
+Everything you need is included in this repository
+
+- A working Docker Compose setup with Hasura and Postgres
+- The Hasura CLI installed as a package dependency
+- SQL migrations to setup the intial database objects
+- [GraphQL Code Generator](https://www.graphql-code-generator.com/) for typesafe backend interactions
+- Convenience scripts for interacting with the various services
+
+Clone the repo
+
+```shell
+git clone git@github.com:WonderPanda/hasura-nestjs-workshop.git
 ```
 
-## Running the app
+Install dependencies
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```shell
+yarn
 ```
 
-## Test
+Start services
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+docker-compose up -d
 ```
 
-## Support
+Run migrations
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+yarn hasura migrate apply
+```
 
-## Stay in touch
+Apply metadata
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+yarn hasura metadata apply
+```
 
-## License
+Start the application
 
-Nest is [MIT licensed](LICENSE).
+```
+yarn start:dev
+```
+
+## Join the Discussion
+
+Please feel free to use [Github Discussions](https://github.com/WonderPanda/hasura-nestjs-workshop/discussions) to ask questions, propose changes, etc or connect with me on Twitter [@WonderPandaDev](https://twitter.com/WonderPandaDev)

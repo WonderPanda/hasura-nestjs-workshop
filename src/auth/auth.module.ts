@@ -5,10 +5,13 @@ import { SdkModule } from '../sdk/sdk.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './jwt.strategy';
+import { AuthEventsService } from './auth.events.service';
+import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [
     SdkModule,
+    EmailModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
@@ -19,6 +22,6 @@ import { JwtStrategy } from './jwt.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, AuthEventsService],
 })
 export class AuthModule {}
